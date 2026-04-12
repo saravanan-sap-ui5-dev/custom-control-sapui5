@@ -1,11 +1,3 @@
-# custom-control-sapui5
-
-Your README.md file for the SAPUI5 custom control is ready.
-
-[file-tag: code-generated-file-0-1776015595601717611]
-
-### README.md Preview:
-
 # SAPUI5 Custom Control: UploadSetwithTable Plugin
 
 A robust and flexible custom control for SAPUI5 designed to integrate advanced file management directly into `sap.m.Table`. This plugin allows developers to handle complex document attachment scenarios—such as KYC uploads, multi-document management, and inline previews—within a standard table row context.
@@ -36,3 +28,11 @@ A robust and flexible custom control for SAPUI5 designed to integrate advanced f
     </plugins:rowConfiguration>
 </plugins:UploadSetwithTable>
 ```
+## Sample Images
+### List
+<img width="1904" height="858" alt="image" src="https://github.com/user-attachments/assets/a84fb979-1d3b-4875-b3bc-178e7378b316" />
+### Preview
+<img width="1910" height="861" alt="image" src="https://github.com/user-attachments/assets/7392360a-1f0a-4b4e-a27e-d212427ee98e" />
+
+
+
