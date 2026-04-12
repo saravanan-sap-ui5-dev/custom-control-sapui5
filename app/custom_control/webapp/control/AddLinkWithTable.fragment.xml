@@ -1,0 +1,21 @@
+<!-- Fragment.fragment.xml -->
+<core:FragmentDefinition xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:form="sap.ui.layout.form" templateShareable="false" class="sapUiTinyMarginTop">
+  <Dialog title="Add Link" contentWidth="20%" contentHeight="auto" class="sapUiSmallMargin" busy="{newLinkModel>/linkDialogBusy}">
+    <content>
+      <form:SimpleForm editable="true">
+        <Label text="URL" required="true"/>
+        <Input value="{newLinkModel>/url}" valueState="{newLinkModel>/nameValueState}"/>
+        <Label text="Name" required="true"/>
+        <Input value="{newLinkModel>/name}" valueState="{newLinkModel>/urlValueState}"/>
+      </form:SimpleForm>
+    </content>
+    <beginButton>
+      <Button text="Add" type="Emphasized" press="handleSubmitLink" />
+    </beginButton>
+    <endButton>
+      <Button text="Cancel" press="handleCloseLinkDialog" />
+    </endButton>
+  </Dialog>
+</core:FragmentDefinition>

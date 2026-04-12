@@ -1,0 +1,13 @@
+<mvc:View controllerName="app.customcontrol.controller.CustomControl"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:custom="app.customcontrol.control">
+    <Page id="page" title="{i18n>title}" class="sapUiContentPadding" enableScrolling="true">
+        <Panel headerText="Customer Documents">
+            <custom:DocumentHelper id="controlDocumentHelper" editable="true" documents="" fetchDocumentsRequested="onFetchDocumentsRequested" change="onDocumentChange" postChecklistDocsPayload="onPostChecklistDocsPayload"/>
+        </Panel>
+        <Panel headerText="Attachments" class="sapUiSmallMarginTop">
+            <custom:AttachmentHelper id="controlAttachmentHelpler" editable="true" attachments="" fetchRequested="onFetchRequested" change="onAttachmentChange" init="onInitAttachment"/>
+        </Panel>
+    </Page>
+</mvc:View>

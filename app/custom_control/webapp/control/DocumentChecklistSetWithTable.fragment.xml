@@ -1,0 +1,54 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:upload="sap.m.upload">
+    <ResponsivePopover title="Documents ({= ${/attachments}.length})" showHeader="false" class="" placement="Top" contentWidth="40%">
+        <content>
+            <Table sticky="ColumnHeaders,HeaderToolbar" width="auto" mode="{= ${/edit} ? 'Delete':'None'}" busy="{/attachmentTableBusy}" autoPopinMode="true" hiddenInPopin="None" items="{path: '/attachments', templateShareable: false}" delete="handleDeleteDocument">
+                <columns>
+                    <Column >
+                        <header>
+                            <Label text="File Name" />
+                        </header>
+                    </Column>
+                    <Column width="10rem">
+                        <header>
+                            <Label text="File Size" />
+                        </header>
+                    </Column>
+                    <Column width="10rem">
+                        <header>
+                            <Label text="Uploaded By" />
+                        </header>
+                    </Column>
+                </columns>
+                <dependents>
+                    <plugins.UploadSetwithTable multiple="true" onActivated="onPluginActivated">
+                        <rowConfiguration>
+                            <upload.UploadItemConfiguration fileNamePath="fileName" mediaTypePath="fileType" urlPath="fileUrl" previewablePath="previewable" fileSizePath="fileSize" isTrustedSourcePath="trustedSource" />
+                        </rowConfiguration>
+                    </plugins.UploadSetwithTable>
+                </dependents>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <HBox>
+                                <Image src="{fileUrl}" class="sapMUSTItemImage sapMUSTItemIcon" visible="{isImageFile}" />
+                                <core:Icon src="{parts: ['fileType', 'fileName'], formatter: '.getIconSrc' }" visible="{= !${isImageFile}}" class="sapMUSTItemImage sapMUSTItemIcon" />
+                                <VBox class="sapUiTinyMargin sapUiSmallMarginBegin">
+                                    <Link text="{fileName}" press="openPreview" class="sapUiTinyMarginBottom" wrapping="true"/>
+                                    <Text text="{fileType}" />
+                                </VBox>
+                            </HBox>
+                            <Text text="{parts: ['fileSize'], formatter: '.getFileSizeWithUnits'}" />
+                            <VBox>
+                                <Text text="{createdBy}" />
+                                <Text class="sapUiTinyMarginTop" text="{createdOn}" />
+                                <!-- text="{parts:[{path:'createdOn'}, {path:'displayFormat'}], formatter:'._formatDate'}" -->
+                            </VBox>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </ResponsivePopover>
+</core:FragmentDefinition>

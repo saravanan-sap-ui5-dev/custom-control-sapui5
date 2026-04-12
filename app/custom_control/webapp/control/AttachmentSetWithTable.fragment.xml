@@ -1,0 +1,73 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:upload="sap.m.upload">
+    <Table sticky="ColumnHeaders,HeaderToolbar" mode="{= ${attachmentModel>/edit}?'Delete':'None'}" autoPopinMode="true" items="{attachmentModel>/attachments}" busy="{attachmentModel>/attachmentBusy}" delete="handleDeleteAttachment">
+        <headerToolbar>
+            <OverflowToolbar visible="{attachmentModel>/edit}">
+                <Title text="Attachments ({= ${attachmentModel>/attachments}.length})" level="H2" />
+                <ToolbarSpacer />
+
+                <u:FileUploader name="myFileUpload" change="handleUploadAttachment" visible="{attachmentModel>/edit}" sameFilenameAllowed="true" multiple="true" uploadUrl="upload/" buttonOnly="true" buttonText="Upload" tooltip="Upload your file to the local server" />
+
+                <Button text="Add Link" press="onAddLink" visible="{= ${attachmentModel>/visibleBtnAddLink} &amp;&amp; ${attachmentModel>/edit}}"/>
+            </OverflowToolbar>
+        </headerToolbar>
+        <dependents>
+            <plugins.UploadSetwithTable onActivated="onPluginActivated">
+                <rowConfiguration>
+                    <upload.UploadItemConfiguration fileNamePath="fileName" mediaTypePath="fileType" urlPath="fileUrl" previewablePath="previewable" fileSizePath="fileSize" isTrustedSourcePath="trustedSource" />
+                </rowConfiguration>
+            </plugins.UploadSetwithTable>
+        </dependents>
+        <columns>
+            <Column importance="High">
+                <header>
+                    <Label text="File Name" />
+                </header>
+            </Column>
+            <Column >
+                <header>
+                    <Label text="ID" />
+                </header>
+            </Column>
+            <Column >
+                <header>
+                    <Label text="File Size" />
+                </header>
+            </Column>
+            <Column >
+                <header>
+                    <Label text="Last Modified" />
+                </header>
+            </Column>
+            <Column visible="{attachmentModel>/isOutputVisible}">
+                <header>
+                    <Label text="Is Output" />
+                </header>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <HBox>
+                        <Image src="{attachmentModel>fileUrl}" class="sapMUSTItemImage sapMUSTItemIcon" visible="{attachmentModel>isImageFile}" />
+                        <core:Icon src="{parts: ['attachmentModel>fileType', 'attachmentModel>fileName'], formatter: '.getIconSrc' }" visible="{= !${attachmentModel>isImageFile}}" class="sapMUSTItemImage sapMUSTItemIcon" />
+                        <VBox class="sapUiTinyMargin sapUiSmallMarginBegin">
+                            <Link text="{attachmentModel>fileName}" press="openPreview" class="sapUiTinyMarginBottom" />
+                            <Text text="{attachmentModel>fileType}" />
+                        </VBox>
+                    </HBox>
+                    <Text text="{attachmentModel>id}" />
+                    <Text text="{path:'attachmentModel>fileSize', formatter:'.getFileSizeWithUnits'}" />
+                    <VBox>
+                        <Text text="{attachmentModel>createdBy}" />
+                        <Text class="sapUiTinyMarginTop" text="{parts:[{path:'attachmentModel>createdOn'}, {path:'attachmentModel>/displayFormat'}], formatter:'.formatDate'}" />
+                    </VBox>
+                    <CheckBox selected="{attachmentModel>isOutput}" select="onSelectIsOutput"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+
+</core:FragmentDefinition>

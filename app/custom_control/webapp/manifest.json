@@ -1,0 +1,121 @@
+{
+  "_version": "1.76.0",
+  "sap.app": {
+    "id": "app.customcontrol",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.20.0",
+      "toolsId": "f1f0cf2f-d722-4c96-b271-77c4fc29a184"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/my/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "CustomControl-onOpenCustomControl": {
+          "semanticObject": "CustomControl",
+          "action": "onOpenCustomControl",
+          "title": "{{CustomControl-onOpenCustomControl.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.146.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "app.customcontrol.i18n.i18n"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "app.customcontrol.view",
+        "async": true,
+        "viewPath": "app.customcontrol.view"
+      },
+      "routes": [
+        {
+          "name": "RouteCustomControl",
+          "pattern": ":?query:",
+          "target": [
+            "TargetCustomControl"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetCustomControl": {
+          "id": "CustomControl",
+          "name": "CustomControl"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "app.customcontrol.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  }
+}

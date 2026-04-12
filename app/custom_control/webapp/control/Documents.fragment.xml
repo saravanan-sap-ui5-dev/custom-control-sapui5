@@ -1,0 +1,63 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:u="sap.ui.unified"
+    xmlns="sap.m">
+    <Table items="{documentModel>/documents}" busy="{documentModel>/documentBusy}" mode="None" sticky="ColumnHeaders,HeaderToolbar" updateFinished="handleUpdateFinished">
+        <headerToolbar>
+            <Toolbar visible="{= !${documentModel>view}}">
+                <Title text="Documents ({= ${documentModel>/documents}.length})" level="H2" />
+            </Toolbar>
+        </headerToolbar>
+        <columns>
+            <Column mergeDuplicates="true" visible="{documentModel>/optional}">
+                <Text text="Customer ID" />
+            </Column>
+            <Column >
+                <Text text="Document Name" />
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+                <Text text="Document Number" />
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+                <Text text="Institution" />
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+                <Text text="Valid From" />
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+                <Text text="Valid To" />
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="7rem">
+                <Text text="Is Mandatory" />
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="8rem">
+                <Text text="No. of Documents" />
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" width="7rem">
+                <Text text="File" />
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem >
+                <cells>
+                    <Text text="{documentModel>customerName}" visible="{documentModel>/optional}"/>
+                    <ObjectIdentifier title="{documentModel>name}" />
+                    <Input value="{documentModel>documentNumber}" liveChange="onLiveChangeInput" editable="{= ${documentModel>edit} &amp;&amp; !${documentModel>attachmentOnly}}"/>
+                    <Input value="{documentModel>institution}" liveChange="onLiveChangeInput" editable="{= ${documentModel>edit} &amp;&amp; !${documentModel>attachmentOnly}}"/>
+                    <DatePicker value="{documentModel>validFrom}" displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-dd" placeholder=" " liveChange="onLiveChangeDate" editable="{= ${documentModel>edit} &amp;&amp; !${documentModel>attachmentOnly}}" change="validateValidFromTo"/>
+                    <DatePicker value="{documentModel>validTo}" displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-dd" placeholder=" " liveChange="onLiveChangeDate" editable="{= ${documentModel>edit} &amp;&amp; !${documentModel>attachmentOnly}}" change="validateValidFromTo"/>
+                    <CheckBox selected="{documentModel>isMandatory}" editable="false"/>
+                    <Text text="{= ${documentModel>numberOfDocuments}===1?'Single':'Multiple'}" />
+                    <HBox>
+                        <u:FileUploader iconOnly="true" buttonOnly="true" icon="sap-icon://upload" tooltip="Upload your file to the local server" change="handleUploadDocument" sameFilenameAllowed="true" style="Emphasized" multiple="{= ${documentModel>numberOfDocuments} === 1 ? false : true}" enabled="{= (${documentModel>numberOfDocuments} === 1 ? !(${documentModel>attachments}.length > 0) : true) &amp;&amp; ${documentModel>edit}}"/>
+                        <Button icon="sap-icon://documents" badgeStyle="Default" class="sapUiTinyMarginBegin" press="handleDocumentListPress" tooltip="View Document List">
+                            <customData>
+                                <BadgeCustomData key="badge" value="{= ${documentModel>attachments}.length}" visible="true"/>
+                            </customData>
+                        </Button>
+                    </HBox>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</core:FragmentDefinition>
